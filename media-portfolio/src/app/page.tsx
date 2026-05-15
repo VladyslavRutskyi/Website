@@ -56,8 +56,8 @@ const oneTimeData = [
 const videoTiers = [
   { name: "Basic", time: "10-60s", desc: "Simple cuts, minimal transitions, subtitles." },
   { name: "Standard", time: "10-50s", desc: "Creative cuts, multi-layer transitions, localized Frequency EQ, and VFX." },
-  { name: "Luxury", time: "10-40s", desc: "Advanced Masking, Color Grading, motion graphics, and Speed Ramping." },
-  { name: "Premium", time: "10-30s", desc: "3D Elements, Digital Compositing, and AI-Enhanced tools." }
+  { name: "Premium", time: "10-40s", desc: "Advanced Masking, Color Grading, motion graphics, and Speed Ramping." },
+  { name: "Luxury", time: "10-30s", desc: "3D Elements, Digital Compositing, and AI-Enhanced tools." }
 ];
 
 const addonData = [
@@ -87,8 +87,8 @@ export default function Home() {
   const [customShoots, setCustomShoots] = useState(0);
   const [basicQty, setBasicQty] = useState(0);
   const [standardQty, setStandardQty] = useState(0);
-  const [luxuryQty, setLuxuryQty] = useState(0);
   const [premiumQty, setPremiumQty] = useState(0);
+    const [luxuryQty, setLuxuryQty] = useState(0);
 
     useEffect(() => {
     // Fetch approved reviews from Cloudflare on page load
@@ -125,8 +125,8 @@ export default function Home() {
       return acc + val;
     }, 0);
 
-    const customRaw = (customShoots * 150) + (basicQty * 100) + (standardQty * 250) + (luxuryQty * 500) + (premiumQty  * 350);
-    const totalVideos = basicQty + standardQty + luxuryQty + premiumQty;
+    const customRaw = (customShoots * 150) + (basicQty * 100) + (standardQty * 250) + (premiumQty * 500) + ( luxuryQty * 350);
+    const totalVideos = basicQty + standardQty + premiumQty + luxuryQty;
     const customDiscount = totalVideos >= 3 ? customRaw * 0.15 : 0;
     const finalCustom = customRaw - customDiscount;
 
@@ -136,7 +136,7 @@ export default function Home() {
       customCurrent: finalCustom,
       customDiscounted: customDiscount > 0
     };
-  }, [selectedPackages, customAdded, customShoots, basicQty, standardQty, luxuryQty, premiumQty]);
+  }, [selectedPackages, customAdded, customShoots, basicQty, standardQty, premiumQty, luxuryQty]);
 
   const togglePackage = (pkgName: string) => setSelectedPackages(prev => prev.includes(pkgName) ? prev.filter(p => p !== pkgName) : [...prev, pkgName]);
   
