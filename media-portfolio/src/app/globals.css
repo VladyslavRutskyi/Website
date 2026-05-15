@@ -2174,13 +2174,3 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
-
-/* This hides any element that looks like a play button overlay */
-[class*="play"], [class*="Play"], svg[class*="play"] {
-  display: none !important;
-}
-
-/* Specifically for your grid: if there's a button tag inside the card, hide it */
-.relative.group button, .relative.group .absolute {
-  pointer-events: none;
-}
