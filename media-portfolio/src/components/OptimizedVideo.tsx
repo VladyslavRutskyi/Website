@@ -12,22 +12,21 @@ export default function OptimizedVideo({ src, className = "", priority = false }
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(priority);
 
-  // FIX 1: Ensure the path includes /Website for GitHub Pages
-  // This prevents 404s on the video files
+  // FIX: Handle GitHub Pages subdirectory pathing
   const videoSrc = src.startsWith('/') && !src.startsWith('/Website') 
     ? `/Website${src}` 
     : src;
 
   useEffect(() => {
-    // FIX 2: Manual play trigger
-    // Browsers often ignore the 'autoPlay' attribute during React hydration.
-    // This effect forces the video to play once it is ready.
+    // Force Autoplay: Browsers often need a manual trigger when the source is dynamic
     if (isIntersecting && videoRef.current) {
       const playVideo = async () => {
         try {
+          // Resetting the load ensures the new source is recognized
+          videoRef.current?.load();
           await videoRef.current?.play();
         } catch (err) {
-          console.warn("Autoplay blocked or failed:", err);
+          console.warn("Autoplay blocked. Ensure the video is muted.", err);
         }
       };
       playVideo();
@@ -55,16 +54,22 @@ export default function OptimizedVideo({ src, className = "", priority = false }
   }, [priority]);
 
   return (
-    <video
-      ref={videoRef}
-      className={`object-cover w-full h-full ${className}`}
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload={priority ? "auto" : "none"}
-    >
-      {(isIntersecting || priority) && <source src={videoSrc} type="video/mp4" />}
-    </video>
+    <div className={`relative w-full h-full overflow-hidden ${className}`}>
+      <video
+        ref={videoRef}
+        // "pointer-events-none" prevents the user from accidentally 
+        // triggering browser video menus/controls when clicking
+        className="object-cover w-full h-full pointer-events-none"
+        autoPlay
+        muted
+        loop
+        playsInline
+        // Explicitly ensuring no controls are shown
+        controls={false}
+        preload={priority ? "auto" : "none"}
+      >
+        {(isIntersecting || priority) && <source src={videoSrc} type="video/mp4" />}
+      </video>
+    </div>
   );
 }
