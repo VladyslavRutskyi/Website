@@ -2176,7 +2176,10 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  /* Forces the browser to hide default play buttons and overlays */
+} 
+
+
+/* Forces the browser to hide default play buttons and overlays */
 video::-webkit-media-controls {
   display: none !important;
 }
@@ -2191,6 +2194,7 @@ video {
   object-fit: cover;
   background-color: transparent !important;
 }
+
 /* Helps the browser prioritize the visible area of the scroll grid */
 .case-card { 
   will-change: transform; 
@@ -2203,4 +2207,27 @@ video {
   touch-action: pan-y; 
   /* Allows you to still scroll down the page while over the grid */
 }
+
+/* Specific Safari Fixes for Horizontal Scrolling */
+@supports (-webkit-hyphens:none) {
+  .case-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: scroll !important;
+    -webkit-overflow-scrolling: touch !important; 
+    scroll-snap-type: x mandatory !important;
+  }
+  
+  .case-card {
+    flex: 0 0 85% !important; 
+    scroll-snap-align: center !important;
+  }
+}
+
+/* Global Safari Video Shadow/Button Fix */
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none !important;
 }
