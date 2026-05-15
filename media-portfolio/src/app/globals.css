@@ -1451,11 +1451,14 @@ h3 {
 .case-grid {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: auto !important; /* Forces scroll */
   scroll-snap-type: x mandatory;
   gap: 1.5rem;
   padding-bottom: 1.5rem;
   scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch; /* Required for smooth swipe on iPhones */
+  touch-action: pan-x; /* Explicitly tells the browser to allow horizontal swiping */
 }
 
 .case-grid::-webkit-scrollbar {
@@ -2173,4 +2176,31 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  /* Forces the browser to hide default play buttons and overlays */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* Ensures the video container doesn't show a 'stalled' icon */
+video {
+  object-fit: cover;
+  background-color: transparent !important;
+}
+/* Helps the browser prioritize the visible area of the scroll grid */
+.case-card { 
+  will-change: transform; 
+  transform: translateZ(0); 
+  /* Triggers GPU acceleration for smoother playback */ 
+} 
+
+/* Ensure the horizontal wrapper doesn't trap the page scroll */ 
+.case-grid-wrapper { 
+  touch-action: pan-y; 
+  /* Allows you to still scroll down the page while over the grid */
+}
 }
