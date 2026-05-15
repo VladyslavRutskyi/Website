@@ -10,11 +10,32 @@ interface OptimizedVideoProps {
 
 export default function OptimizedVideo({ src, className = "", priority = false }: OptimizedVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // If priority is true, it starts intersecting instantly
   const [isIntersecting, setIsIntersecting] = useState(priority);
 
+  // FIX 1: Ensure the path includes /Website for GitHub Pages
+  // This prevents 404s on the video files
+  const videoSrc = src.startsWith('/') && !src.startsWith('/Website') 
+    ? `/Website${src}` 
+    : src;
+
   useEffect(() => {
-    if (priority) return; // Skip the observer completely if it's a priority video
+    // FIX 2: Manual play trigger
+    // Browsers often ignore the 'autoPlay' attribute during React hydration.
+    // This effect forces the video to play once it is ready.
+    if (isIntersecting && videoRef.current) {
+      const playVideo = async () => {
+        try {
+          await videoRef.current?.play();
+        } catch (err) {
+          console.warn("Autoplay blocked or failed:", err);
+        }
+      };
+      playVideo();
+    }
+  }, [isIntersecting]);
+
+  useEffect(() => {
+    if (priority) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -43,7 +64,7 @@ export default function OptimizedVideo({ src, className = "", priority = false }
       playsInline
       preload={priority ? "auto" : "none"}
     >
-      {(isIntersecting || priority) && <source src={src} type="video/mp4" />}
+      {(isIntersecting || priority) && <source src={videoSrc} type="video/mp4" />}
     </video>
   );
 }
