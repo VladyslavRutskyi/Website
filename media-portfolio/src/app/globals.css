@@ -2177,57 +2177,88 @@ footer {
     transition-duration: 0.01ms !important;
   }
 } 
+/* ==========================================================================
+   PRODUCTION VIDEO & HORIZONTAL SCROLL ARCHITECTURE 
+   ========================================================================== */
 
-
-/* Forces the browser to hide default play buttons and overlays */
-video::-webkit-media-controls {
+/* 1. Global Player Enforcement (Kills Chrome/Safari Native UI Overlays) */
+video::-webkit-media-controls,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-inline-media-controls {
   display: none !important;
+  -webkit-appearance: none !important;
 }
 
-video::-webkit-media-controls-start-playback-button {
-  display: none !important;
-  -webkit-appearance: none;
-}
-
-/* Ensures the video container doesn't show a 'stalled' icon */
 video {
   object-fit: cover;
   background-color: transparent !important;
+  pointer-events: none; /* Prevents desktop right-click player hijacking */
 }
 
-/* Helps the browser prioritize the visible area of the scroll grid */
-.case-card { 
-  will-change: transform; 
-  transform: translateZ(0); 
-  /* Triggers GPU acceleration for smoother playback */ 
-} 
-
-/* Ensure the horizontal wrapper doesn't trap the page scroll */ 
-.case-grid-wrapper { 
-  touch-action: pan-y; 
-  /* Allows you to still scroll down the page while over the grid */
+/* 2. Break-Out Container Fix (Prevents Phone Page Freezing) */
+.case-grid-wrapper {
+  position: relative;
+  width: 100%; /* Stop using 100vw breaks which cause mobile scroll traps */
+  overflow: hidden;
+  touch-action: pan-y; /* Crucial: Safe page-down scrolling on trackpads/phones */
 }
 
-/* Specific Safari Fixes for Horizontal Scrolling */
-@supports (-webkit-hyphens:none) {
+/* 3. Cross-Browser Scroll Strip (Desktop Trackpad & Mobile Swipe) */
+.case-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  
+  /* Enables native hardware-accelerated horizontal scrolling */
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory;
+  
+  /* iOS smooth kinetic momentum scrolling */
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none; /* Hides Firefox scrollbar */
+}
+
+.case-grid::-webkit-scrollbar {
+  display: none; /* Hides Chrome/Safari scrollbar */
+}
+
+/* 4. GPU-Accelerated Framework Cards */
+.case-card {
+  flex: 0 0 85% !important; /* Mobile sizing first */
+  max-width: 430px;
+  scroll-snap-align: start;
+  
+  /* Pushes layers to the graphics card to wipe out the 30s rendering lag */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 5. Desktop Layout Tuning Changes */
+@media (min-width: 1101px) {
   .case-grid {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: scroll !important;
-    -webkit-overflow-scrolling: touch !important; 
-    scroll-snap-type: x mandatory !important;
+    overflow-x: auto !important; /* Allows mouse/trackpad swipe on desktop */
+    scroll-snap-type: none; /* Smoother tracking on wide desktop displays */
   }
   
   .case-card {
-    flex: 0 0 85% !important; 
-    scroll-snap-align: center !important;
+    flex: 0 0 320px !important; /* Locks proportional size on big screens */
   }
 }
 
-/* Global Safari Video Shadow/Button Fix */
-video::-webkit-media-controls-panel,
-video::-webkit-media-controls-play-button,
-video::-webkit-media-controls-start-playback-button {
-  display: none !important;
-  -webkit-appearance: none !important;
+/* 6. Strict Explicit Engine Fix for Safari Devices */
+@supports (-webkit-hyphens:none) {
+  .case-grid {
+    display: flex !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .case-card {
+    scroll-snap-align: center !important; /* Keeps cards centered on iPhone swiping */
+  }
 }
