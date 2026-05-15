@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS leads;
+CREATE TABLE leads (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  bundle TEXT,
+  message TEXT,
+  total TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
