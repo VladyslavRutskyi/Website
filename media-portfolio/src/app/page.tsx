@@ -182,9 +182,9 @@ export default function Home() {
     try {
       await emailjs.send(
         'service_lg0v2dk', 
-        'template_cjsaj8o', // Replace with your template_ ID string from EmailJS dashboard
+        'template_cjsaj8o', 
         templateParams,
-        'MCPap-zTMCUR6jGWt'   // Replace with your Account Public Key string from EmailJS dashboard
+        'MCPap-zTMCUR6jGWt'
       );
 
       alert(`Thank you, ${clientName}! A copy of your contract agreement has been automatically dispatched to ${clientEmail}.`);
@@ -475,20 +475,21 @@ export default function Home() {
             </div>
             
             <form onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-  <input name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-  <input name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-  <textarea name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-  
-  {/* CRITICAL FIX: Explicitly enforce type="submit" so the browser executes your handler function */}
-  <button 
-    type="submit"
-    disabled={isSubmitting}
-    className="button primary" 
-    style={{ background: '#c8ff3d', color: '#000', fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
-  >
-    {isSubmitting ? "Generating Agreement..." : "Request Agreement"}
-  </button>
-</form>
+              <input name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+              <input name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+              <textarea name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="button primary" 
+                style={{ background: '#c8ff3d', color: '#000', fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+              >
+                {isSubmitting ? "Generating Agreement..." : "Request Agreement"}
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
 
       <footer style={{ background: '#0a0a0a', padding: '60px 20px', color: '#fff', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <h2 style={{ fontSize: '1.5rem', marginBottom: '24px', color: '#fff' }}>Let's Build Something Great.</h2>
