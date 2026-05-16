@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import OptimizedVideo from "../components/OptimizedVideo";
 import ReviewForm from "../components/ReviewForm";
+// Import EmailJS module securely for client-side execution context
+import emailjs from "@emailjs/browser";
 
 const featuredCases = [
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4", label: "Auto Showcase", title: "Black Lambo High Class", desc: "Luxury auto content for high-end sales", category: "Automotive" },
@@ -23,7 +25,6 @@ const featuredCases = [
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/NAREK%20RING%20.mp4", label: "Product Feature", title: "Narek Ring", desc: "Detailed custom ring showcase", category: "Jewelry" },
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Production%20of%20the%20ring%20Render%20Finalized%20%232.mp4", label: "BTS Process", title: "Ring Production", desc: "Behind the scenes 3D render", category: "Jewelry" },
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4", label: "Lifestyle", title: "Ocean Proposal Ring", desc: "Cinematic ring showcase", category: "Jewelry" },
-  //{ url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Rolex%20Oyster%20Perpatual%20DateJust%20White%20v1.1.mp4", label: "Watch Showcase", title: "White Rolex Datejust", desc: "Luxury watch presentation", category: "Jewelry" },
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Sprite%20Rolex%20Oyster%20Peretual%20Date%20v1.1.mp4", label: "Watch Showcase", title: "Sprite Rolex Oyster", desc: "Luxury watch presentation", category: "Jewelry" },
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Swag%20Pendant.mp4", label: "Product Feature", title: "Swag Pendant", desc: "Detailed piece showcase", category: "Jewelry" },
   { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/mr%20K%20diamond%20for%20500%20or%209000.mp4", label: "Comparison", title: "Mr K Diamond Challenge", desc: "Jewelry price comparison", category: "Jewelry" },
@@ -80,21 +81,19 @@ export default function Home() {
   const [customAdded, setCustomAdded] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeVideoTier, setActiveVideoTier] = useState<string | null>(null);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
   
-
   const [customShoots, setCustomShoots] = useState(0);
   const [basicQty, setBasicQty] = useState(0);
   const [standardQty, setStandardQty] = useState(0);
   const [premiumQty, setPremiumQty] = useState(0);
-    const [luxuryQty, setLuxuryQty] = useState(0);
+  const [luxuryQty, setLuxuryQty] = useState(0);
 
-    useEffect(() => {
-    // Fetch approved reviews from Cloudflare on page load
+  useEffect(() => {
     fetch('https://media-api.vladyslavrutskyi.workers.dev/reviews')
       .then(res => res.json())
-      .then((data: any) => setReviews(data)) // <-- Added ': any' here
+      .then((data: any) => setReviews(data))
       .catch(err => console.error("Error fetching reviews:", err));
   }, []);
 
@@ -114,7 +113,6 @@ export default function Home() {
 
   const infiniteCases = [...displayedCases, ...displayedCases, ...displayedCases];
 
-  // CENTRAL PRICING & SAVINGS LOGIC 
   const totalStats = useMemo(() => {
     const allItems = [...monthlyData, ...oneTimeData, ...addonData, { name: 'Full SMM Management', price: 500, value: 500 }];
     const items = selectedPackages.filter(p => !p.startsWith("Custom Build")).map(name => allItems.find(p => p.name === name)).filter(Boolean);
@@ -125,7 +123,7 @@ export default function Home() {
       return acc + val;
     }, 0);
 
-    const customRaw = (customShoots * 150) + (basicQty * 100) + (standardQty * 250) + (premiumQty * 500) + ( luxuryQty * 350);
+    const customRaw = (customShoots * 150) + (basicQty * 100) + (standardQty * 250) + (premiumQty * 500) + (luxuryQty * 350);
     const totalVideos = basicQty + standardQty + premiumQty + luxuryQty;
     const customDiscount = totalVideos >= 3 ? customRaw * 0.15 : 0;
     const finalCustom = customRaw - customDiscount;
@@ -161,37 +159,42 @@ export default function Home() {
   const scrollLeft = () => carouselRef.current?.scrollBy({ left: -454, behavior: 'smooth' });
   const scrollRight = () => carouselRef.current?.scrollBy({ left: 454, behavior: 'smooth' });
 
+  // EmailJS form processor loop
   const handleBookingSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Grab the data from the form
     const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      bundle: selectedPackages.join(', '),
-      message: formData.get('message'),
-      total: totalStats.price.toLocaleString()
+    const clientName = formData.get('name') as string;
+    const clientEmail = formData.get('email') as string;
+    const clientMessage = formData.get('message') as string;
+    const totalPrice = totalStats.price.toLocaleString();
+    const selectedBundles = selectedPackages.length > 0 ? selectedPackages.join(', ') : "Custom Build Layout";
+
+    const templateParams = {
+      client_name: clientName,
+      client_email: clientEmail,
+      selected_bundles: selectedBundles,
+      total_price: totalPrice,
+      message: clientMessage,
     };
 
     try {
-      // ⚠️ IMPORTANT: Replace this URL with the live URL Cloudflare gave you when you ran `npm run deploy`
-      const response = await fetch('https://media-api.vladyslavrutskyi.workers.dev', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+      await emailjs.send(
+        'service_lg0v2dk', 
+        'template_cjsaj8o', // Replace with your template_ ID string from EmailJS dashboard
+        templateParams,
+        'MCPap-zTMCUR6jGWt'   // Replace with your Account Public Key string from EmailJS dashboard
+      );
 
-      if (response.ok) {
-        alert("Request sent successfully! I will be in touch shortly with the agreement.");
-        setSelectedPackages([]); // Clear the selected packages
-        e.currentTarget.reset(); // Empty the form inputs
-      } else {
-        alert("Something went wrong saving your request. Please try again.");
-      }
+      alert(`Thank you, ${clientName}! A copy of your contract agreement has been automatically dispatched to ${clientEmail}.`);
+      setSelectedPackages([]); 
+      e.currentTarget.reset(); 
     } catch (error) {
-      console.error(error);
-      alert("Error sending request. Please email me directly at vladyslavrutskyi@gmail.com");
+      console.error("Email delivery failed:", error);
+      alert("Automation delivery skipped. Please email me directly at vladyslavrutskyi@gmail.com");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -244,7 +247,7 @@ export default function Home() {
           </div>
         </section>
 
-       {/* WORK */}
+        {/* WORK */}
         <section className="section cases" id="cases">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '16px' }}>
             <div><p className="eyebrow">Selected cases</p><h2 style={{ margin: 0 }}>Featured work</h2></div>
@@ -276,10 +279,8 @@ export default function Home() {
           <div className="about-copy" style={{ background: '#151515', padding: '40px', borderRadius: '12px' }}>
             <p className="eyebrow" style={{ color: '#c8ff3d' }}>About me</p>
             <h2 style={{ color: '#fff' }}>I am not JUST a Videographer</h2>
-            
-          
             <p style={{ color: '#d1d5db' }}>I am 20 years old based in Sacramento, CA, Currently a 4-th year student pursuing Computer Science Degree at the University of California, Merced.</p>
-               <p style={{ color: '#d1d5db' }}>I help founders, local brands, venues, and service businesses produce consistent videos that build momentum and drive results. With <strong>4 years</strong> of background in media production and a passion for storytelling, I craft compelling narratives that resonate with audiences.</p>
+            <p style={{ color: '#d1d5db' }}>I help founders, local brands, venues, and service businesses produce consistent videos that build momentum and drive results. With <strong>4 years</strong> of background in media production and a passion for storytelling, I craft compelling narratives that resonate with audiences.</p>
           </div>
           <div className="about-stats" style={{ display: 'grid', gap: '16px' }}>
             {[{v: "4 YEARS", l: "Of Experience"}, {v: "500+", l: "Projects"}, {v: "10+ Clients", l: "100% Satisfaction"}].map((s, i) => (
@@ -302,10 +303,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* VIDEO TIER DEFINITIONS */}
           {(packageTab === "Monthly" || packageTab === "Custom") && (
             <div style={{ marginBottom: '32px', background: '#151515', borderRadius: '12px', padding: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <p style={{ color: '#ffffff', fontSize: '0.85rem', fontWeight: 800, marginBottom: '12px', textTransform: 'uppercase' }}>Video Tier Definitions</p><p  style={{ color: '#c8ff3d', fontSize: '0.85rem', fontWeight: 400, }}> Each next video style may include previous description </p>
+              <p style={{ color: '#ffffff', fontSize: '0.85rem', fontWeight: 800, marginBottom: '12px', textTransform: 'uppercase' }}>Video Tier Definitions</p><p style={{ color: '#c8ff3d', fontSize: '0.85rem', fontWeight: 400 }}> Each next video style may include previous description </p>
               
               <div className="no-scrollbar" style={{ display: 'flex', gap: '10px', overflowX: 'auto', marginBottom: activeVideoTier ? '16px' : '0' }}>
                 {videoTiers.map(tier => (
@@ -319,7 +319,6 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Expanded Description Box */}
               {activeVideoTier && (
                 <div style={{ background: '#0a0a0a', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
@@ -335,7 +334,6 @@ export default function Home() {
           )}
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {/* MONTHLY BATCHES */}
             {packageTab === "Monthly" && monthlyData.map(pkg => {
               const isGrowth = pkg.name === "Growth Batch";
               const isElite = pkg.name === "Elite Batch";
@@ -357,7 +355,6 @@ export default function Home() {
               );
             })}
 
-            {/* MANAGEMENT */}
             {packageTab === "Management" && (
               <article className="package-card featured" style={{ gridColumn: '1 / -1', maxWidth: '500px', margin: '0 auto', background: '#151515', color: '#fff' }}>
                 <span className="dot" style={{ background: '#8fe8ff' }}></span>
@@ -371,7 +368,6 @@ export default function Home() {
               </article>
             )}
 
-            {/* ONE-TIME */}
             {packageTab === "One-Time" && oneTimeData.map(p => (
               <article key={p.name} className="package-card" style={{ minHeight: 'auto', background: '#fff' }}>
                 <h3>{p.name}</h3><p className="price">${p.price}</p>
@@ -382,7 +378,6 @@ export default function Home() {
               </article>
             ))}
 
-            {/* ADD-ONS */}
             {packageTab === "Add-ons" && addonData.map(a => (
               <article key={a.name} className="package-card" style={{ minHeight: 'auto', background: '#fff' }}>
                 <h3 style={{ marginBottom: '4px' }}>{a.name}</h3><p className="price" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>${a.price}</p>
@@ -393,7 +388,6 @@ export default function Home() {
               </article>
             ))}
 
-            {/* CUSTOM */}
             {packageTab === "Custom" && (
               <div style={{ gridColumn: '1 / -1', background: '#fff', padding: '32px', borderRadius: '12px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
                 <div>
@@ -404,9 +398,9 @@ export default function Home() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '15px' }}>
                     <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Basic ($100)</label><input type="number" min="0" value={basicQty} onChange={e => setBasicQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
                     <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Standard ($250)</label><input type="number" min="0" value={standardQty} onChange={e => setStandardQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
-                     <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Premium ($350)</label><input type="number" min="0" value={premiumQty} onChange={e => setPremiumQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
+                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Premium ($350)</label><input type="number" min="0" value={premiumQty} onChange={e => setPremiumQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
                     <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Luxury ($500)</label><input type="number" min="0" value={luxuryQty} onChange={e => setLuxuryQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
-                    </div>
+                  </div>
                 </div>
                 <div style={{ background: '#f8f6f0', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderRadius: '8px', padding: '24px', textAlign: 'center' }}>
                   <p style={{ margin: 0, color: '#686a70', fontWeight: 800 }}>Estimated Build Total:</p>
@@ -425,17 +419,15 @@ export default function Home() {
         <section className="section" id="reviews" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <p className="eyebrow" style={{ color: '#c8ff3d' }}>Feedback</p><h2 style={{ color: '#fff' }}>Client Reviews</h2>
           
-          {/* Scrollable Container */}
           <div className="no-scrollbar" style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
             gap: '24px', 
             marginTop: '40px',
-            maxHeight: '400px', // Limits height
-            overflowY: 'auto',  // Makes it scrollable
+            maxHeight: '400px', 
+            overflowY: 'auto',  
             paddingRight: '10px'
           }}>
-            {/* We fetch reviews from DB. If empty, show a fallback message */}
             {reviews.length === 0 ? (
               <p style={{ color: '#686a70' }}>Loading reviews...</p>
             ) : (
@@ -451,7 +443,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* Interactive Review Form */}
           <ReviewForm />
         </section>
 
@@ -459,7 +450,7 @@ export default function Home() {
         <section className="section" id="collaborations" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <p className="eyebrow" style={{ color: '#c8ff3d' }}>Network</p><h2 style={{ color: '#fff' }}>Work & Collaborations</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '40px' }}>
-            {["ICE VAULT", "KOIMENE", "PRESTIGE MOTORSPORT", "KFLEX", "OneWayNick", "DbBouttabag", "EVEN RIGHTS", "UC MERCED", "TED", "FSP",].map(brand => (
+            {["ICE VAULT", "KOIMENE", "PRESTIGE MOTORSPORT", "KFLEX", "OneWayNick", "DbBouttabag", "EVEN RIGHTS", "UC MERCED", "TED", "FSP"].map(brand => (
               <span key={brand} style={{ padding: '12px 24px', background: '#151515', border: '1px solid #fff', borderRadius: '4px', fontWeight: 900, color: '#fff' }}>{brand}</span>
             ))}
           </div>
@@ -482,11 +473,19 @@ export default function Home() {
                 </div>
               ) : <p style={{ color: '#686a70' }}>Select a service above to see your customized quote.</p>}
             </div>
-            <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            <form onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <input name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
               <input name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
               <textarea name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-              <button className="button primary" style={{ background: '#c8ff3d', color: '#000', fontWeight: 900 }}>Request Agreement</button>
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="button primary" 
+                style={{ background: '#c8ff3d', color: '#000', fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+              >
+                {isSubmitting ? "Generating Agreement..." : "Request Agreement"}
+              </button>
             </form>
           </div>
         </section>
@@ -499,10 +498,9 @@ export default function Home() {
           <a href="https://www.instagram.com/vlad_rutskyi/" target="_blank" rel="noopener noreferrer" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
             Instagram
           </a>
-          <a href="www.linkedin.com/in/vladyslavrutskyi" target="_blank" rel="noopener noreferrer" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
+          <a href="https://www.linkedin.com/in/vladyslavrutskyi/" target="_blank" rel="noopener noreferrer" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
             LinkedIn
           </a>
-          {/* The mailto link automatically opens their email app pre-filled with your address and a subject line! */}
           <a href="mailto:vladyslavrutskyi@gmail.com?subject=Media%20Production%20Inquiry" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
             Email Me
           </a>
