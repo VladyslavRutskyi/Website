@@ -291,7 +291,7 @@ export default function Home() {
           <div className="about-copy" style={{ background: '#151515', padding: '40px', borderRadius: '12px' }}>
             <p className="eyebrow" style={{ color: '#c8ff3d' }}>About me</p>
             <h2 style={{ color: '#fff' }}>I am not JUST a Videographer</h2>
-            <p style={{ color: '#d1d5db' }}>I am 20 years old based in Sacramento, CA, Currently a 4-th year student pursuing Computer Science Degree at the University of California, Merced.</p>
+            <p style={{ color: '#d1d5db' }}>I am 21 years old based in Sacramento, CA, Currently a 4-th year student pursuing Computer Science Degree at the University of California, Merced.</p>
             <p style={{ color: '#d1d5db' }}>I help founders, local brands, venues, and service businesses produce consistent videos that build momentum and drive results. With <strong>4 years</strong> of background in media production and a passion for storytelling, I craft compelling narratives that resonate with audiences.</p>
           </div>
           <div className="about-stats" style={{ display: 'grid', gap: '16px' }}>
@@ -317,7 +317,7 @@ export default function Home() {
 
           {(packageTab === "Monthly" || packageTab === "Custom") && (
             <div style={{ marginBottom: '32px', background: '#151515', borderRadius: '12px', padding: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <p style={{ color: '#ffffff', fontSize: '0.85rem', fontWeight: 800, marginBottom: '12px', textTransform: 'uppercase' }}>Video Tier Definitions</p><p style={{ color: '#c8ff3d', fontSize: '0.85rem', fontWeight: 400 }}> Each next video style may include previous description </p>
+              <p style={{ color: '#ffffff', fontSize: '0.85rem', fontWeight: 800, marginBottom: '12px', textTransform: 'uppercase' }}>Reels Video Tier Definitions</p><p style={{ color: '#c8ff3d', fontSize: '0.85rem', fontWeight: 400 }}> Each next video style may include previous description </p>
               
               <div className="no-scrollbar" style={{ display: 'flex', gap: '10px', overflowX: 'auto', marginBottom: activeVideoTier ? '16px' : '0' }}>
                 {videoTiers.map(tier => (
