@@ -617,21 +617,23 @@ h1, h2, .eyebrow { color: #f8f6f0; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 .carousel-indicator {
   position: absolute;
   top: 0;
-  bottom: 24px; 
-  width: 100px; 
-  z-index: 50; 
+  bottom: 0;
+  width: 80px; /* Reduced width so it covers less of the video */
+  z-index: 2;
   pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-/* Updated Gradient to blend with Turquoise Background */
+/* Subdued subtle fade on the left edge */
 .indicator-left {
   left: 0;
-  background: linear-gradient(to right, #126e5a 25%, transparent 100%);
+  background: linear-gradient(to right, rgba(21, 21, 21, 0.3), transparent);
 }
 
+/* Subdued subtle fade on the right edge */
 .indicator-right {
   right: 0;
-  background: linear-gradient(to left, #126e5a 25%, transparent 100%);
+  background: linear-gradient(to left, rgba(21, 21, 21, 0.3), transparent);
 }
 
 .glass-one {
