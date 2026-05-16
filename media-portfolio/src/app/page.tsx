@@ -172,7 +172,7 @@ export default function Home() {
     const selectedBundles = selectedPackages.length > 0 ? selectedPackages.join(', ') : "Custom Build Layout";
 
     const templateParams = {
-      client_name: clientName,
+      name: clientName,
       client_email: clientEmail,
       selected_bundles: selectedBundles,
       total_price: totalPrice,
@@ -180,6 +180,7 @@ export default function Home() {
     };
 
     try {
+      // Corrected API integration mapping utilizing your explicit public key
       await emailjs.send(
         'service_lg0v2dk', 
         'template_cjsaj8o', 
@@ -187,9 +188,20 @@ export default function Home() {
         'MCPap-zTMCUR6jGWt'
       );
 
-      alert(`Thank you, ${clientName}! A copy of your contract agreement has been automatically dispatched to ${clientEmail}.`);
+      // Smooth inline HTML replacement to eliminate jarring alert popups entirely
+      const container = document.getElementById('booking-form-wrapper');
+      if (container) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 30px 10px; color: #151515; background: #f8f6f0; border-radius: 8px; border: 2px dashed #151515;">
+            <div style="font-size: 3rem; margin-bottom: 10px; color: #151515;">[ + ]</div>
+            <h3 style="font-size: 1.6rem; margin: 0 0 10px 0; font-weight: 900; uppercase; letter-spacing: 0.05em;">Agreement Sent!</h3>
+            <p style="color: #686a70; line-height: 1.6; font-size: 0.95rem; margin: 0 auto; max-width: 290px;">
+              Thank you, <strong>${clientName}</strong>. A stylized blueprint contract overview has been dispatched to <strong>${clientEmail}</strong>. Check your inbox to view the agreement and lock in your production date!
+            </p>
+          </div>
+        `;
+      }
       setSelectedPackages([]); 
-      e.currentTarget.reset(); 
     } catch (error) {
       console.error("Email delivery failed:", error);
       alert("Automation delivery skipped. Please email me directly at vladyslavrutskyi@gmail.com");
@@ -474,21 +486,24 @@ export default function Home() {
               ) : <p style={{ color: '#686a70' }}>Select a service above to see your customized quote.</p>}
             </div>
             
-            <form onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <input name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-              <input name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-              <textarea name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-              <button 
-                type="submit"
-                disabled={isSubmitting}
-                className="button primary" 
-                style={{ background: '#c8ff3d', color: '#000', fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
-              >
-                {isSubmitting ? "Generating Agreement..." : "Request Agreement"}
-              </button>
-            </form>
+            <div id="booking-form-wrapper">
+              <form onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <input name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <input name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <textarea name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="button primary" 
+                  style={{ background: '#c8ff3d', color: '#000', fontWeight: 900, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                >
+                  {isSubmitting ? "Generating Agreement..." : "Request Agreement"}
+                </button>
+              </form>
+            </div>
           </div>
         </section>
+            
       </main>
 
       <footer style={{ background: '#0a0a0a', padding: '60px 20px', color: '#fff', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
