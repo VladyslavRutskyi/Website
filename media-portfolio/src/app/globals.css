@@ -618,7 +618,7 @@ h1, h2, .eyebrow { color: #f8f6f0; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 80px; /* Reduced width so it covers less of the video */
+  width: 40px; /* Reduced width so it covers less of the video */
   z-index: 2;
   pointer-events: none;
   transition: opacity 0.3s ease;
