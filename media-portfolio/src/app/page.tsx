@@ -272,7 +272,7 @@ export default function Home() {
           </div>
           <div className="case-grid-wrapper" style={{ position: 'relative', overflow: 'hidden' }}>
             <div className="carousel-indicator indicator-left"></div><div className="carousel-indicator indicator-right"></div>
-            <div className="case-grid no-scrollbar" ref={carouselRef} onScroll={handleInfiniteScroll} style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', gap: '1.5rem', paddingBottom: '1.5rem', scrollBehavior: 'smooth' }}>
+            <div className="case-grid no-scrollbar" ref={carouselRef} onScroll={handleInfiniteScroll} style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', gap: '1.5rem', paddingBottom: '1.5rem' }}>
               {infiniteCases.map((video, idx) => (
                 <article key={`${activeCategory}-${video.url}-${idx}`} className="case-card">
                   <div className="case-visual" style={{ aspectRatio: '4/5' }}><OptimizedVideo src={video.url} /></div>
