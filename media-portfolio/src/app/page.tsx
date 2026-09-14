@@ -82,6 +82,7 @@ export default function Home() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeVideoTier, setActiveVideoTier] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingConsent, setBookingConsent] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
   
   const [customShoots, setCustomShoots] = useState(0);
@@ -162,12 +163,28 @@ export default function Home() {
   // EmailJS form processor loop
   const handleBookingSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    const clientName = formData.get('name') as string;
-    const clientEmail = formData.get('email') as string;
-    const clientMessage = formData.get('message') as string;
+    const clientName = String(formData.get('name') || '').replace(/[\u0000-\u001F\u007F]/g, '').trim();
+    const clientEmail = String(formData.get('email') || '').replace(/[\u0000-\u001F\u007F]/g, '').trim();
+    const clientMessage = String(formData.get('message') || '').replace(/[\u0000-\u001F\u007F]/g, '').trim();
+
+    if (!bookingConsent) {
+      alert('Please acknowledge the Privacy Policy and Terms & Conditions before submitting your inquiry.');
+      return;
+    }
+
+    if (!clientName || clientName.length < 2) {
+      alert('Please enter your name.');
+      return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(clientEmail)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSubmitting(true);
     const totalPrice = totalStats.price.toLocaleString();
     const selectedBundles = selectedPackages.length > 0 ? selectedPackages.join(', ') : "Custom Build Layout";
 
@@ -176,19 +193,17 @@ export default function Home() {
       client_email: clientEmail,
       selected_bundles: selectedBundles,
       total_price: totalPrice,
-      message: clientMessage,
+      message: clientMessage || 'No additional project details provided.',
     };
 
     try {
-      // Corrected API integration mapping utilizing your explicit public key
       await emailjs.send(
-        'service_lg0v2dk', 
-        'template_cjsaj8o', 
+        'service_lg0v2dk',
+        'template_cjsaj8o',
         templateParams,
         'MCPap-zTMCUR6jGWt'
       );
 
-      // Smooth inline HTML replacement to eliminate jarring alert popups entirely
       const container = document.getElementById('booking-form-wrapper');
       if (container) {
         container.innerHTML = `
@@ -201,7 +216,8 @@ export default function Home() {
           </div>
         `;
       }
-      setSelectedPackages([]); 
+      setSelectedPackages([]);
+      setBookingConsent(false);
     } catch (error) {
       console.error("Email delivery failed:", error);
       alert("Automation delivery skipped. Please email me directly at vladyslavrutskyi@gmail.com");
@@ -488,9 +504,25 @@ export default function Home() {
             
             <div id="booking-form-wrapper">
               <form onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <input name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-                <input name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
-                <textarea name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <label htmlFor="booking-name" style={{ color: '#151515', fontWeight: 700, fontSize: '0.85rem' }}>Name</label>
+                <input id="booking-name" name="name" placeholder="Name" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <label htmlFor="booking-email" style={{ color: '#151515', fontWeight: 700, fontSize: '0.85rem' }}>Email</label>
+                <input id="booking-email" name="email" placeholder="Email" type="email" required style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <label htmlFor="booking-message" style={{ color: '#151515', fontWeight: 700, fontSize: '0.85rem' }}>Project details</label>
+                <textarea id="booking-message" name="message" placeholder="Project details..." rows={4} style={{ border: '1px solid #ddd', background: '#fff', color: '#151515' }} />
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', color: '#151515', fontSize: '0.8rem', lineHeight: 1.5 }}>
+                  <input
+                    type="checkbox"
+                    checked={bookingConsent}
+                    onChange={(e) => setBookingConsent(e.target.checked)}
+                    required
+                    aria-label="I acknowledge the Privacy Policy and Terms & Conditions"
+                    style={{ marginTop: '2px', minWidth: '18px', width: '18px', height: '18px' }}
+                  />
+                  <span>
+                    I acknowledge that I have read the <a href="/Website/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="/Website/terms" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>, and I understand that by submitting this form I authorize Vladyslav Rutskyi Creative Studios to contact me regarding my inquiry and requested services.
+                  </span>
+                </label>
                 <button 
                   type="submit"
                   disabled={isSubmitting}
@@ -518,6 +550,12 @@ export default function Home() {
           </a>
           <a href="mailto:vladyslavrutskyi@gmail.com?subject=Media%20Production%20Inquiry" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
             Email Me
+          </a>
+          <a href="/Website/privacy-policy" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
+            Privacy Policy
+          </a>
+          <a href="/Website/terms" style={{ color: '#c8ff3d', textDecoration: 'none', fontWeight: 800, fontSize: '1.1rem', transition: 'opacity 0.2s' }}>
+            Terms & Conditions
           </a>
         </div>
         
