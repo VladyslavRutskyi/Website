@@ -2,30 +2,18 @@ export const portfolioVideos = [
   {
     id: "case-1",
     url: "https://your-cdn-url.com/2019-Rolex-Skydwaller.mp4",
-    category: "Featured work",
-    title: "2019 Rolex Skydwaller",
-    description: "Champagne dial brand film",
   },
   {
     id: "case-2",
     url: "https://your-cdn-url.com/Black-Lambo.mp4",
-    category: "Featured work",
-    title: "Luxury Automotive Feature",
-    description: "Luxury auto content for high-end sales",
   },
   {
     id: "case-3",
     url: "https://your-cdn-url.com/Ice-Vault.mp4",
-    category: "Featured work",
-    title: "Ice Vault Commercial",
-    description: "Retail campaign commercial edit",
   },
   {
     id: "case-4",
     url: "https://your-cdn-url.com/Lambo-Edit.mp4",
-    category: "Featured work",
-    title: "Lamborghini Cinematic Showcase",
-    description: "Performance-driven hero cut",
   }
 ];
 

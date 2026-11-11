@@ -7,34 +7,34 @@ import ReviewForm from "../components/ReviewForm";
 import emailjs from "@emailjs/browser";
 
 const featuredCases = [
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4", label: "Auto Showcase", title: "Luxury Automotive Feature", desc: "Luxury auto content for high-end sales", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Lambo%20Edit%20Narek%20%231.mp4", label: "Hero Cut", title: "Lamborghini Cinematic Showcase", desc: "Performance-driven hero cut", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/BMW%20Alpina%20Prestige%20Motorsport%20%232.mp4", label: "Auto Showcase", title: "Prestige Motorsport Commercial", desc: "Motorsport highlight reel", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/6Side%20Hellcat.mp4", label: "Auto Showcase", title: "Hellcat Performance Feature", desc: "High energy automotive edit", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Prestige%20Motorsport%20Introductory%20Showroom%20Video%201v4%20.mp4", label: "Showroom", title: "Prestige Motorsport Showroom Film", desc: "Introductory showroom tour", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Supra%20Edit%204k.mp4", label: "Auto Showcase", title: "Supra Performance Feature", desc: "High-performance car feature", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Blue%20Rolex%20Oyster%20Peretual%20Datejust%20v1.1.mp4", label: "Product Film", title: "Rolex Product Feature", desc: "Luxury watch lifestyle film", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Rolex%20March%2021,%202026.mp4", label: "Showcase", title: "Luxury Watch Showcase", desc: "Watch product showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Hope%20pendant.mp4", label: "Product Feature", title: "Luxury Pendant Showcase", desc: "Detailed piece showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Iced%20Watch%20Ice%20Vault%20FD.mp4", label: "Product Feature", title: "Luxury Watch Detail Film", desc: "Premium watch visuals", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kendrick%20spinning%20Rolexes%20Recolored.mp4", label: "Creative Edit", title: "Rolex Motion Showcase", desc: "Dynamic recolored sequence", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/LALA%20pendant%20recolored.mp4", label: "Product Feature", title: "Pendant Product Film", desc: "Custom pendant detail", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20BUSSED%20DOWN%20SHELL%20CHAIN%20V2.mp4", label: "Showcase", title: "Custom Chain Showcase", desc: "Custom bussed down chain", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Narek%20Team%20Steez%20Sterling%20Silver%20Watch%20%232.mp4", label: "Product Highlight", title: "Silver Watch Product Film", desc: "Sterling silver showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20New%20Ring%20.mp4", label: "Product Feature", title: "Luxury Ring Showcase", desc: "Premium ring showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/NAREK%20RING%20.mp4", label: "Product Feature", title: "Custom Ring Campaign", desc: "Detailed custom ring showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Production%20of%20the%20ring%20Render%20Finalized%20%232.mp4", label: "BTS Process", title: "Ring Production Render", desc: "Behind the scenes 3D render", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4", label: "Lifestyle", title: "Ocean Proposal Ring Film", desc: "Cinematic ring showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Sprite%20Rolex%20Oyster%20Peretual%20Date%20v1.1.mp4", label: "Watch Showcase", title: "Rolex Oyster Feature", desc: "Luxury watch presentation", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Swag%20Pendant.mp4", label: "Product Feature", title: "Pendant Campaign Visual", desc: "Detailed piece showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/mr%20K%20diamond%20for%20500%20or%209000.mp4", label: "Comparison", title: "Diamond Investment Comparison", desc: "Jewelry price comparison", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/M1llionz%20Grillz%20Final%20Video.mp4", label: "Editorial", title: "Artist Grillz Editorial", desc: "Music brand editorial content", category: "Lifestyle & Events" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Laron%20Backyard%20Final%20Final%20RTP.mp4", label: "Event", title: "Backyard Event Feature", desc: "Event coverage and vibes", category: "Lifestyle & Events" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/OneWayNick.MP4", label: "Lifestyle", title: "Lifestyle Feature", desc: "Lifestyle and event feature", category: "Lifestyle & Events" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20AD%20Commercial%20Final.mp4", label: "Commercial", title: "Ice Vault Commercial", desc: "Retail campaign commercial edit", category: "Brand & Commercial" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kflex%20IceVault.mp4", label: "Promo", title: "Kflex Brand Feature", desc: "Artist feature promo", category: "Brand & Commercial" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Mr%20K%20Customs%20Resell%20Final.mp4", label: "Commercial", title: "Customs Resell Promo", desc: "Resell promotion video", category: "Brand & Commercial" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20Why%20did%20choose%20Jewelry%20FINAL%20VIDEO.mp4", label: "Brand Interview", title: "Jewelry Brand Story", desc: "Mr K brand narrative", category: "Brand & Commercial" }
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Lambo%20Edit%20Narek%20%231.mp4", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/BMW%20Alpina%20Prestige%20Motorsport%20%232.mp4", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/6Side%20Hellcat.mp4", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Prestige%20Motorsport%20Introductory%20Showroom%20Video%201v4%20.mp4", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Supra%20Edit%204k.mp4", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Blue%20Rolex%20Oyster%20Peretual%20Datejust%20v1.1.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Rolex%20March%2021,%202026.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Hope%20pendant.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Iced%20Watch%20Ice%20Vault%20FD.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kendrick%20spinning%20Rolexes%20Recolored.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/LALA%20pendant%20recolored.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20BUSSED%20DOWN%20SHELL%20CHAIN%20V2.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Narek%20Team%20Steez%20Sterling%20Silver%20Watch%20%232.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20New%20Ring%20.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/NAREK%20RING%20.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Production%20of%20the%20ring%20Render%20Finalized%20%232.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Sprite%20Rolex%20Oyster%20Peretual%20Date%20v1.1.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Swag%20Pendant.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/mr%20K%20diamond%20for%20500%20or%209000.mp4", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/M1llionz%20Grillz%20Final%20Video.mp4", category: "Lifestyle & Events" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Laron%20Backyard%20Final%20Final%20RTP.mp4", category: "Lifestyle & Events" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/OneWayNick.MP4", category: "Lifestyle & Events" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20AD%20Commercial%20Final.mp4", category: "Brand & Commercial" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kflex%20IceVault.mp4", category: "Brand & Commercial" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Mr%20K%20Customs%20Resell%20Final.mp4", category: "Brand & Commercial" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20Why%20did%20choose%20Jewelry%20FINAL%20VIDEO.mp4", category: "Brand & Commercial" }
 ];
 
 const categories = ["All", "Jewelry", "Automotive", "Lifestyle & Events", "Brand & Commercial"];
@@ -306,10 +306,6 @@ export default function Home() {
               {infiniteCases.map((video, idx) => (
                 <article key={`${activeCategory}-${video.url}-${idx}`} className="case-card">
                   <div className="case-visual" style={{ aspectRatio: '4/5' }}><OptimizedVideo src={video.url} /></div>
-                  <div style={{ padding: '16px' }}>
-                    <p style={{ fontSize: '0.75rem', fontWeight: 800, color: '#686a70', margin: '0 0 4px' }}>{video.label}</p>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#151515', textShadow: 'none' }}>{video.title}</h3>
-                  </div>
                 </article>
               ))}
             </div>

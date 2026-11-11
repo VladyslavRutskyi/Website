@@ -1641,23 +1641,9 @@ h3 {
   scroll-snap-align: start;
 }
 
-.case-card div:last-child {
-  padding: 18px 8px 8px;
-}
-
-.case-card p,
-.case-card span,
 .saving,
 .form-note {
   color: var(--muted);
-}
-
-.case-card p {
-  margin-bottom: 8px;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
 }
 
 .about {

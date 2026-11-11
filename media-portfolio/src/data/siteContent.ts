@@ -8,18 +8,18 @@ export const businessMetrics = [
 export const portfolioCategories = ["All", "Automotive", "Jewelry", "Lifestyle & Events", "Brand & Commercial"];
 
 export const portfolioVideos = [
-  { id: "aut-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4", title: "Luxury Automotive Feature", category: "Automotive", summary: "Luxury auto content for a premium sales campaign." },
-  { id: "aut-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Lambo%20Edit%20Narek%20%231.mp4", title: "Lamborghini Cinematic Showcase", category: "Automotive", summary: "Performance-driven hero cut for a car launch." },
-  { id: "aut-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/BMW%20Alpina%20Prestige%20Motorsport%20%232.mp4", title: "Prestige Motorsport Commercial", category: "Automotive", summary: "Motorsport highlight reel with a premium finish." },
-  { id: "jew-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Blue%20Rolex%20Oyster%20Peretual%20Datejust%20v1.1.mp4", title: "Rolex Product Feature", category: "Jewelry", summary: "Luxury watch showcase for a product-driven editorial." },
-  { id: "jew-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Hope%20pendant.mp4", title: "Luxury Pendant Showcase", category: "Jewelry", summary: "Detailed pendant product film with luxury styling." },
-  { id: "jew-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4", title: "Ocean Proposal Ring Film", category: "Jewelry", summary: "Cinematic ring presentation in a natural setting." },
-  { id: "life-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/M1llionz%20Grillz%20Final%20Video.mp4", title: "Artist Grillz Editorial", category: "Lifestyle & Events", summary: "Editorial music and culture content with event energy." },
-  { id: "life-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Laron%20Backyard%20Final%20Final%20RTP.mp4", title: "Backyard Event Feature", category: "Lifestyle & Events", summary: "Event storytelling with atmosphere and movement." },
-  { id: "life-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/OneWayNick.MP4", title: "Lifestyle Feature", category: "Lifestyle & Events", summary: "Lifestyle feature grounded in branded storytelling." },
-  { id: "brand-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20AD%20Commercial%20Final.mp4", title: "Ice Vault Commercial", category: "Brand & Commercial", summary: "Retail campaign commercial designed for conversion." },
-  { id: "brand-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kflex%20IceVault.mp4", title: "Kflex Brand Feature", category: "Brand & Commercial", summary: "Artist and product feature for promotion and reach." },
-  { id: "brand-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Mr%20K%20Customs%20Resell%20Final.mp4", title: "Customs Resell Promo", category: "Brand & Commercial", summary: "Commercial storytelling for a resell brand." },
+  { id: "aut-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4" },
+  { id: "aut-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Lambo%20Edit%20Narek%20%231.mp4" },
+  { id: "aut-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/BMW%20Alpina%20Prestige%20Motorsport%20%232.mp4" },
+  { id: "jew-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Blue%20Rolex%20Oyster%20Peretual%20Datejust%20v1.1.mp4" },
+  { id: "jew-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Hope%20pendant.mp4" },
+  { id: "jew-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4" },
+  { id: "life-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/M1llionz%20Grillz%20Final%20Video.mp4" },
+  { id: "life-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Laron%20Backyard%20Final%20Final%20RTP.mp4" },
+  { id: "life-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/OneWayNick.MP4" },
+  { id: "brand-1", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20AD%20Commercial%20Final.mp4" },
+  { id: "brand-2", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kflex%20IceVault.mp4" },
+  { id: "brand-3", url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Mr%20K%20Customs%20Resell%20Final.mp4" },
 ];
 
 export const services = [
