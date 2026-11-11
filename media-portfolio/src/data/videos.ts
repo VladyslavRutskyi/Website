@@ -10,21 +10,21 @@ export const portfolioVideos = [
     id: "case-2",
     url: "https://your-cdn-url.com/Black-Lambo.mp4",
     category: "Featured work",
-    title: "Black Lambo High Class Autosales",
+    title: "Luxury Automotive Feature",
     description: "Luxury auto content for high-end sales",
   },
   {
     id: "case-3",
     url: "https://your-cdn-url.com/Ice-Vault.mp4",
     category: "Featured work",
-    title: "Ice Vault AD Commercial",
+    title: "Ice Vault Commercial",
     description: "Retail campaign commercial edit",
   },
   {
     id: "case-4",
     url: "https://your-cdn-url.com/Lambo-Edit.mp4",
     category: "Featured work",
-    title: "Lambo Edit Narek #1",
+    title: "Lamborghini Cinematic Showcase",
     description: "Performance-driven hero cut",
   }
 ];

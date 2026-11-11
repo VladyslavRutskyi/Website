@@ -7,51 +7,54 @@ import ReviewForm from "../components/ReviewForm";
 import emailjs from "@emailjs/browser";
 
 const featuredCases = [
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4", label: "Auto Showcase", title: "Black Lambo High Class", desc: "Luxury auto content for high-end sales", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Lambo%20Edit%20Narek%20%231.mp4", label: "Hero Cut", title: "Lambo Edit Narek #1", desc: "Performance-driven hero cut", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/BMW%20Alpina%20Prestige%20Motorsport%20%232.mp4", label: "Auto Showcase", title: "BMW Alpina Prestige", desc: "Motorsport highlight reel", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/6Side%20Hellcat.mp4", label: "Auto Showcase", title: "6Side Hellcat", desc: "High energy automotive edit", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Prestige%20Motorsport%20Introductory%20Showroom%20Video%201v4%20.mp4", label: "Showroom", title: "Prestige Motorsport", desc: "Introductory showroom tour", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Supra%20Edit%204k.mp4", label: "Auto Showcase", title: "Supra 4K Edit", desc: "High-performance car feature", category: "Automotive" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Blue%20Rolex%20Oyster%20Peretual%20Datejust%20v1.1.mp4", label: "Product Film", title: "Blue Rolex Oyster", desc: "Luxury watch lifestyle film", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Rolex%20March%2021,%202026.mp4", label: "Showcase", title: "Ice Vault Rolex", desc: "Watch product showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Hope%20pendant.mp4", label: "Product Feature", title: "Ice Vault Hope Pendant", desc: "Detailed piece showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Iced%20Watch%20Ice%20Vault%20FD.mp4", label: "Product Feature", title: "Iced Watch FD", desc: "Premium watch visuals", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kendrick%20spinning%20Rolexes%20Recolored.mp4", label: "Creative Edit", title: "Spinning Rolexes", desc: "Dynamic recolored sequence", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/LALA%20pendant%20recolored.mp4", label: "Product Feature", title: "LALA Pendant", desc: "Custom pendant detail", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20BUSSED%20DOWN%20SHELL%20CHAIN%20V2.mp4", label: "Showcase", title: "Mr K Shell Chain", desc: "Custom bussed down chain", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Narek%20Team%20Steez%20Sterling%20Silver%20Watch%20%232.mp4", label: "Product Highlight", title: "Team Steez Silver Watch", desc: "Sterling silver showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20New%20Ring%20.mp4", label: "Product Feature", title: "Ice Vault New Ring", desc: "Premium ring showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/NAREK%20RING%20.mp4", label: "Product Feature", title: "Narek Ring", desc: "Detailed custom ring showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Production%20of%20the%20ring%20Render%20Finalized%20%232.mp4", label: "BTS Process", title: "Ring Production", desc: "Behind the scenes 3D render", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4", label: "Lifestyle", title: "Ocean Proposal Ring", desc: "Cinematic ring showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Sprite%20Rolex%20Oyster%20Peretual%20Date%20v1.1.mp4", label: "Watch Showcase", title: "Sprite Rolex Oyster", desc: "Luxury watch presentation", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Swag%20Pendant.mp4", label: "Product Feature", title: "Swag Pendant", desc: "Detailed piece showcase", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/mr%20K%20diamond%20for%20500%20or%209000.mp4", label: "Comparison", title: "Mr K Diamond Challenge", desc: "Jewelry price comparison", category: "Jewelry" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/M1llionz%20Grillz%20Final%20Video.mp4", label: "Editorial", title: "M1llionz Grillz", desc: "Music brand editorial content", category: "Lifestyle & Events" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Laron%20Backyard%20Final%20Final%20RTP.mp4", label: "Event", title: "Laron Backyard", desc: "Event coverage and vibes", category: "Lifestyle & Events" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/OneWayNick.MP4", label: "Lifestyle", title: "One Way Nick", desc: "Lifestyle and event feature", category: "Lifestyle & Events" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20AD%20Commercial%20Final.mp4", label: "Commercial", title: "Ice Vault AD Commercial", desc: "Retail campaign commercial edit", category: "Brand & Commercial" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kflex%20IceVault.mp4", label: "Promo", title: "Kflex IceVault", desc: "Artist feature promo", category: "Brand & Commercial" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Mr%20K%20Customs%20Resell%20Final.mp4", label: "Commercial", title: "Mr K Customs", desc: "Resell promotion video", category: "Brand & Commercial" },
-  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20Why%20did%20choose%20Jewelry%20FINAL%20VIDEO.mp4", label: "Brand Interview", title: "Why Choose Jewelry", desc: "Mr K brand narrative", category: "Brand & Commercial" }
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Black%20Lambo%20High%20Class%20Autosales%20v2.mp4", label: "Auto Showcase", title: "Luxury Automotive Feature", desc: "Luxury auto content for high-end sales", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Lambo%20Edit%20Narek%20%231.mp4", label: "Hero Cut", title: "Lamborghini Cinematic Showcase", desc: "Performance-driven hero cut", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/BMW%20Alpina%20Prestige%20Motorsport%20%232.mp4", label: "Auto Showcase", title: "Prestige Motorsport Commercial", desc: "Motorsport highlight reel", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/6Side%20Hellcat.mp4", label: "Auto Showcase", title: "Hellcat Performance Feature", desc: "High energy automotive edit", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Prestige%20Motorsport%20Introductory%20Showroom%20Video%201v4%20.mp4", label: "Showroom", title: "Prestige Motorsport Showroom Film", desc: "Introductory showroom tour", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Supra%20Edit%204k.mp4", label: "Auto Showcase", title: "Supra Performance Feature", desc: "High-performance car feature", category: "Automotive" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Blue%20Rolex%20Oyster%20Peretual%20Datejust%20v1.1.mp4", label: "Product Film", title: "Rolex Product Feature", desc: "Luxury watch lifestyle film", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Rolex%20March%2021,%202026.mp4", label: "Showcase", title: "Luxury Watch Showcase", desc: "Watch product showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20Hope%20pendant.mp4", label: "Product Feature", title: "Luxury Pendant Showcase", desc: "Detailed piece showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Iced%20Watch%20Ice%20Vault%20FD.mp4", label: "Product Feature", title: "Luxury Watch Detail Film", desc: "Premium watch visuals", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kendrick%20spinning%20Rolexes%20Recolored.mp4", label: "Creative Edit", title: "Rolex Motion Showcase", desc: "Dynamic recolored sequence", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/LALA%20pendant%20recolored.mp4", label: "Product Feature", title: "Pendant Product Film", desc: "Custom pendant detail", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20BUSSED%20DOWN%20SHELL%20CHAIN%20V2.mp4", label: "Showcase", title: "Custom Chain Showcase", desc: "Custom bussed down chain", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Narek%20Team%20Steez%20Sterling%20Silver%20Watch%20%232.mp4", label: "Product Highlight", title: "Silver Watch Product Film", desc: "Sterling silver showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20New%20Ring%20.mp4", label: "Product Feature", title: "Luxury Ring Showcase", desc: "Premium ring showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/NAREK%20RING%20.mp4", label: "Product Feature", title: "Custom Ring Campaign", desc: "Detailed custom ring showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Production%20of%20the%20ring%20Render%20Finalized%20%232.mp4", label: "BTS Process", title: "Ring Production Render", desc: "Behind the scenes 3D render", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Proposal%20Ring%20by%20the%20ocean.mp4", label: "Lifestyle", title: "Ocean Proposal Ring Film", desc: "Cinematic ring showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Sprite%20Rolex%20Oyster%20Peretual%20Date%20v1.1.mp4", label: "Watch Showcase", title: "Rolex Oyster Feature", desc: "Luxury watch presentation", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Swag%20Pendant.mp4", label: "Product Feature", title: "Pendant Campaign Visual", desc: "Detailed piece showcase", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/mr%20K%20diamond%20for%20500%20or%209000.mp4", label: "Comparison", title: "Diamond Investment Comparison", desc: "Jewelry price comparison", category: "Jewelry" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/M1llionz%20Grillz%20Final%20Video.mp4", label: "Editorial", title: "Artist Grillz Editorial", desc: "Music brand editorial content", category: "Lifestyle & Events" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Laron%20Backyard%20Final%20Final%20RTP.mp4", label: "Event", title: "Backyard Event Feature", desc: "Event coverage and vibes", category: "Lifestyle & Events" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/OneWayNick.MP4", label: "Lifestyle", title: "Lifestyle Feature", desc: "Lifestyle and event feature", category: "Lifestyle & Events" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Ice%20Vault%20AD%20Commercial%20Final.mp4", label: "Commercial", title: "Ice Vault Commercial", desc: "Retail campaign commercial edit", category: "Brand & Commercial" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Kflex%20IceVault.mp4", label: "Promo", title: "Kflex Brand Feature", desc: "Artist feature promo", category: "Brand & Commercial" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/Mr%20K%20Customs%20Resell%20Final.mp4", label: "Commercial", title: "Customs Resell Promo", desc: "Resell promotion video", category: "Brand & Commercial" },
+  { url: "https://pub-3b7f22f29c844581b299336014312a8b.r2.dev/Website%20Ready%20Videos/MR%20K%20Why%20did%20choose%20Jewelry%20FINAL%20VIDEO.mp4", label: "Brand Interview", title: "Jewelry Brand Story", desc: "Mr K brand narrative", category: "Brand & Commercial" }
 ];
 
 const categories = ["All", "Jewelry", "Automotive", "Lifestyle & Events", "Brand & Commercial"];
 const panelClasses = ['one', 'two', 'three', 'four', 'five', 'six'];
 
 const monthlyData = [
-  { name: "Starter Batch", price: 1000, dot: "green", features: ["2 shoots, up to 3 hrs each", "4 Basic Videos", "2 Standard Videos", "10 Retouched Photos"], value: 1350 },
-  { name: "Growth Batch", price: 2500, dot: "yellow", features: ["4 shoots, up to 3 hrs each", "6 Basic Videos", "4 Standard Videos", "2 Premium Videos", "1 Luxury Video", "30 Retouched Photos"], value: 3800 },
-  { name: "Premium Batch", price: 4000, dot: "red", features: ["4 shoots, up to 4 hrs each", "8 Basic Videos", "6 Standard Videos", "2 Premium Videos", "2 Luxury Videos", "50 Retouched Photos"], value: 5500 },
-  { name: "Elite Batch", price: 7500, dot: "white", features: ["6 shoots (up to 6 hrs ea)", "10 Basic + 10 Standard Videos", "3 Premium + 3 Luxury Videos", "Social Media Mgmt Included", "100+ Photos"], value: 9950 }
+  { name: "STARTER", price: 1500, dot: "green", features: ["1 production session (up to 3 hours)", "3 short-form videos", "10 edited photographs", "Basic creative direction", "1 revision per video"], value: 1500 },
+  { name: "GROWTH", price: 3250, dot: "yellow", features: ["2 production sessions (up to 3 hours each)", "6 short-form videos", "20 edited photographs", "Content planning", "Creative direction", "2 revisions per video"], value: 3250 },
+  { name: "PREMIUM", price: 5000, dot: "red", features: ["4 production sessions (up to 3 hours each)", "8 short-form videos", "30 edited photographs", "1 premium cinematic video", "Advanced editing and storytelling", "Content strategy", "Performance review"], value: 5000 },
+  { name: "ELITE", price: 9000, dot: "white", features: ["4–6 production sessions", "12–16 short-form videos", "40–50 edited photographs", "2 premium cinematic videos", "Creative direction and campaign development", "Priority scheduling", "Analytics and reporting", "Optional social media management"], value: 9000 }
 ];
 
 const oneTimeData = [
-  { name: "Pro Photoshoot (8 hrs)", price: 800, desc: "An 8-hour comprehensive production session with up to 100 retouched photos." },
-  { name: "Luxury Single Video", price: 500, desc: "A singular 15-60s cinematic edit with 3D elements and Digital Compositing. DOES NOT INCLUDE THE SHOOT"  },
-  { name: "Half-Day Session (4 hrs)", price: 350, desc: "A focused 4-hour shooting block with up to 60 retouched photos." },
-  { name: "Mini Session (2 hrs)", price: 250, desc: "A quick 2-hour shoot with up to 20 retouched photos." }
+  { name: "Basic Short-Form Video", price: 300, desc: "Short-form video production for fast, focused content needs." },
+  { name: "Standard Short-Form Video", price: 425, desc: "Enhanced short-form video with stronger storytelling, pacing, and polish." },
+  { name: "Premium Cinematic Video", price: 650, desc: "Premium cinematic edit with elevated motion, grading, and creative direction." },
+  { name: "Luxury Commercial Video", price: 1200, desc: "Project-based commercial video production starting at $1,200 depending on scope." },
+  { name: "Photography Session", price: 375, desc: "A focused photography session with professionally retouched stills." },
+  { name: "Half-Day Production (up to 4 hours)", price: 750, desc: "A half-day production session for content capture and creative planning." },
+  { name: "Full-Day Production (up to 8 hours)", price: 1250, desc: "A full-day production session designed for larger, more comprehensive shoots." }
 ];
 
 const videoTiers = [
@@ -62,13 +65,20 @@ const videoTiers = [
 ];
 
 const addonData = [
-  { name: "Rush Delivery (24h)", price: 300, desc: "Project priority with first proof delivered in 24 hours." },
-  { name: "Rush Delivery (48h)", price: 200, desc: "Project delivery ahead of the standard 14-day window." },
-  { name: "RAW Gallery Access", price: 200, desc: "Full access to all unedited RAW files from your production." },
-  { name: "Cinematic Video Add-on", price: 100, desc: "Up to 30s cinematic video added to any photoshoot." },
-  { name: "Photos on Set", price: 100, desc: "Up to 20 retouched high-resolution stills made on set at videoshoot." },
-  { name: "Extra Retouching", price: 100, desc: "10 additional high-resolution retouched photos." },
-  { name: "Live Editing", price: 50, desc: "Watch the workflow live and provide feedback in real-time." }
+  { name: "Additional short-form video", price: 300, desc: "Additional short-form video production at $250-$350 depending on complexity and turnaround." },
+  { name: "Additional premium video", price: 650, desc: "Additional premium cinematic video at $450-$650 based on scope and editing needs." },
+  { name: "Additional edited photograph", price: 25, desc: "Single additional high-resolution edited photograph." },
+  { name: "10 additional edited photographs", price: 200, desc: "Bundle pricing for 10 additional edited stills." },
+  { name: "Additional production hour", price: 150, desc: "Extra production time beyond the included session length." },
+  { name: "Additional filming session (up to 3 hours)", price: 450, desc: "Extra production session clearly distinguished from half-day and full-day rates." },
+  { name: "Drone footage", price: 350, desc: "Drone coverage at $200-$350 depending on location, permitting, and flight complexity." },
+  { name: "Rush delivery (48-72 hours)", price: 0, desc: "Priority turnaround at +25% of the project rate, subject to capacity and agreed scope." },
+  { name: "Additional revision round", price: 75, desc: "Additional revision cycle beyond the included package allowance." },
+  { name: "Advanced motion graphics", price: 400, desc: "Advanced motion graphics from $150-$400 depending on duration and complexity." },
+  { name: "Raw footage delivery", price: 300, desc: "Raw footage delivery from $150-$300 depending on project size and file volume." },
+  { name: "Additional platform formatting", price: 100, desc: "Cross-platform formatting and cut-down adaptation at $50-$100 per format." },
+  { name: "Scriptwriting and concept development", price: 300, desc: "Scriptwriting or concept development from $150-$300 depending on scope." },
+  { name: "Travel outside the included service area", price: 0, desc: "Travel and production logistics outside the agreed service area require a separate custom quote." }
 ];
 
 export default function Home() {
@@ -115,7 +125,13 @@ export default function Home() {
   const infiniteCases = [...displayedCases, ...displayedCases, ...displayedCases];
 
   const totalStats = useMemo(() => {
-    const allItems = [...monthlyData, ...oneTimeData, ...addonData, { name: 'Full SMM Management', price: 500, value: 500 }];
+    const allItems = [
+      ...monthlyData,
+      ...oneTimeData,
+      ...addonData,
+      { name: 'Monthly Content Production', price: 3500, value: 3500 },
+      { name: 'Full Social Media Management', price: 4500, value: 4500 }
+    ];
     const items = selectedPackages.filter(p => !p.startsWith("Custom Build")).map(name => allItems.find(p => p.name === name)).filter(Boolean);
 
     const basePrice = items.reduce((acc, p) => acc + (p?.price || 0), 0);
@@ -124,16 +140,14 @@ export default function Home() {
       return acc + val;
     }, 0);
 
-    const customRaw = (customShoots * 150) + (basicQty * 100) + (standardQty * 250) + (premiumQty * 500) + (luxuryQty * 350);
-    const totalVideos = basicQty + standardQty + premiumQty + luxuryQty;
-    const customDiscount = totalVideos >= 3 ? customRaw * 0.15 : 0;
-    const finalCustom = customRaw - customDiscount;
+    const customRaw = (customShoots * 150) + (basicQty * 300) + (standardQty * 425) + (premiumQty * 650) + (luxuryQty * 1200);
+    const finalCustom = customRaw;
 
     return {
       price: basePrice + (customAdded ? finalCustom : 0),
-      savings: (baseValue - basePrice) + (customAdded ? customDiscount : 0),
+      savings: Math.max(0, baseValue - basePrice),
       customCurrent: finalCustom,
-      customDiscounted: customDiscount > 0
+      customDiscounted: false
     };
   }, [selectedPackages, customAdded, customShoots, basicQty, standardQty, premiumQty, luxuryQty]);
 
@@ -306,12 +320,17 @@ export default function Home() {
         <section className="section about" id="about">
           <div className="about-copy" style={{ background: '#151515', padding: '40px', borderRadius: '12px' }}>
             <p className="eyebrow" style={{ color: '#c8ff3d' }}>About me</p>
-            <h2 style={{ color: '#fff' }}>I am not JUST a Videographer</h2>
-            <p style={{ color: '#d1d5db' }}>I am 21 years old based in Sacramento, CA, Currently a 4-th year student pursuing Computer Science Degree at the University of California, Merced.</p>
-            <p style={{ color: '#d1d5db' }}>I help founders, local brands, venues, and service businesses produce consistent videos that build momentum and drive results. With <strong>4 years</strong> of background in media production and a passion for storytelling, I craft compelling narratives that resonate with audiences.</p>
+            <h2 style={{ color: '#fff' }}>Creative production built for premium brands.</h2>
+            <p style={{ color: '#d1d5db' }}>I help founders, local brands, venues, and service businesses create visual content that supports growth, stronger brand presence, and clearer communication. With <strong>4+ years</strong> of experience in media production and storytelling, I craft compelling narratives that resonate with audiences.</p>
+            <p style={{ color: '#d1d5db' }}>Creative production and visual content supporting businesses in generating over $500,000 in revenue.</p>
           </div>
           <div className="about-stats" style={{ display: 'grid', gap: '16px' }}>
-            {[{v: "4 YEARS", l: "Of Experience"}, {v: "500+", l: "Projects"}, {v: "10+ Clients", l: "100% Satisfaction"}].map((s, i) => (
+            {[
+              { v: "4+ YEARS", l: "Of Experience" },
+              { v: "$500K+", l: "in business revenue supported" },
+              { v: "500+", l: "Projects" },
+              { v: "10+ Clients", l: "Trusted partners" }
+            ].map((s, i) => (
               <div key={i} style={{ background: '#151515', border: '1px solid #fff', padding: '32px', textAlign: 'center', borderRadius: '8px' }}>
                 <strong style={{ color: '#fff', fontSize: '2.5rem', display: 'block' }}>{s.v}</strong>
                 <span style={{ color: '#c8ff3d', fontWeight: 800 }}>{s.l}</span>
@@ -363,8 +382,8 @@ export default function Home() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
             {packageTab === "Monthly" && monthlyData.map(pkg => {
-              const isGrowth = pkg.name === "Growth Batch";
-              const isElite = pkg.name === "Elite Batch";
+              const isGrowth = pkg.name === "GROWTH";
+              const isElite = pkg.name === "ELITE";
               const isSelected = selectedPackages.includes(pkg.name);
               const isDark = isGrowth || isElite;
               return (
@@ -372,7 +391,6 @@ export default function Home() {
                   {isGrowth && <div style={{ position: 'absolute', top: '40px', right: '-45px', background: '#c8ff3d', color: '#000', padding: '10px 60px', transform: 'rotate(45deg)', fontWeight: 900 }}>Most Popular</div>}
                   {isElite && <div style={{ position: 'absolute', top: '40px', right: '-45px', background: '#ff3b3b', color: '#fff', padding: '10px 60px', transform: 'rotate(45deg)', fontWeight: 900 }}>Best Value</div>}
                   <h3>{pkg.name}</h3><p className="price">${pkg.price.toLocaleString()}</p>
-                  <p style={{ color: '#c8ff3d', fontSize: '0.85rem', fontWeight: 800, textShadow: '1px 1px 2px #000' }}>Save ${(pkg.value - pkg.price).toLocaleString()} in this batch</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '20px 0', flexGrow: 1 }}>
                     {pkg.features.map(f => <li key={f} style={{ padding: '8px 0', borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}` }}>{f}</li>)}
                   </ul>
@@ -384,16 +402,29 @@ export default function Home() {
             })}
 
             {packageTab === "Management" && (
-              <article className="package-card featured" style={{ gridColumn: '1 / -1', maxWidth: '500px', margin: '0 auto', background: '#151515', color: '#fff' }}>
-                <span className="dot" style={{ background: '#8fe8ff' }}></span>
-                <h3>Social Media Management</h3><p className="price">$500 <small>/ mo</small></p>
-                <p style={{ color: 'rgba(255,255,255,0.7)', margin: '20px 0', fontSize: '0.9rem' }}>
-                  Creation of a tailored 3-month plan, monthly posting calendar, 3-4 posts per week, copywriting, hashtag research, community engagement, and performance reports.
-                </p>
-                <button onClick={() => togglePackage("Full SMM Management")} className="select-package" style={{ background: selectedPackages.includes("Full SMM Management") ? '#c8ff3d' : '#fff', color: '#000' }}>
-                  {selectedPackages.includes("Full SMM Management") ? "✓ Added" : "Add Management"}
-                </button>
-              </article>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+                <article className="package-card featured" style={{ background: '#151515', color: '#fff' }}>
+                  <span className="dot" style={{ background: '#8fe8ff' }}></span>
+                  <h3>Monthly Content Production</h3><p className="price">Starting at $3,500 <small>/ month</small></p>
+                  <p style={{ color: 'rgba(255,255,255,0.7)', margin: '20px 0', fontSize: '0.9rem' }}>
+                    Ongoing production support with concept planning, content capture, editing, and delivery for a consistent monthly content pipeline.
+                  </p>
+                  <button onClick={() => togglePackage("Monthly Content Production")} className="select-package" style={{ background: selectedPackages.includes("Monthly Content Production") ? '#c8ff3d' : '#fff', color: '#000' }}>
+                    {selectedPackages.includes("Monthly Content Production") ? "✓ Added" : "Add Monthly Production"}
+                  </button>
+                </article>
+
+                <article className="package-card featured" style={{ background: '#151515', color: '#fff' }}>
+                  <span className="dot" style={{ background: '#c8ff3d' }}></span>
+                  <h3>Full Social Media Management</h3><p className="price">Starting at $4,500 <small>/ month</small></p>
+                  <p style={{ color: 'rgba(255,255,255,0.7)', margin: '20px 0', fontSize: '0.9rem' }}>
+                    Strategy, content planning, posting, community management, and performance reporting for brands that need ongoing digital support.
+                  </p>
+                  <button onClick={() => togglePackage("Full Social Media Management")} className="select-package" style={{ background: selectedPackages.includes("Full Social Media Management") ? '#c8ff3d' : '#fff', color: '#000' }}>
+                    {selectedPackages.includes("Full Social Media Management") ? "✓ Added" : "Add Management"}
+                  </button>
+                </article>
+              </div>
             )}
 
             {packageTab === "One-Time" && oneTimeData.map(p => (
@@ -406,15 +437,19 @@ export default function Home() {
               </article>
             ))}
 
-            {packageTab === "Add-ons" && addonData.map(a => (
-              <article key={a.name} className="package-card" style={{ minHeight: 'auto', background: '#fff' }}>
-                <h3 style={{ marginBottom: '4px' }}>{a.name}</h3><p className="price" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>${a.price}</p>
-                <p style={{ fontSize: '0.85rem', color: '#686a70', marginBottom: '20px', lineHeight: '1.4' }}>{a.desc}</p>
-                <button onClick={() => togglePackage(a.name)} className="select-package" style={{ background: selectedPackages.includes(a.name) ? '#c8ff3d' : '#000', color: selectedPackages.includes(a.name) ? '#000' : '#fff' }}>
-                  {selectedPackages.includes(a.name) ? "✓ Added" : "Add to Bundle"}
-                </button>
-              </article>
-            ))}
+            {packageTab === "Add-ons" && addonData.map(a => {
+              const displayPrice = a.price > 0 ? `$${a.price}` : (a.name.includes('Rush delivery') ? '+25%' : 'Custom quote');
+
+              return (
+                <article key={a.name} className="package-card" style={{ minHeight: 'auto', background: '#fff' }}>
+                  <h3 style={{ marginBottom: '4px' }}>{a.name}</h3><p className="price" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>{displayPrice}</p>
+                  <p style={{ fontSize: '0.85rem', color: '#686a70', marginBottom: '20px', lineHeight: '1.4' }}>{a.desc}</p>
+                  <button onClick={() => togglePackage(a.name)} className="select-package" style={{ background: selectedPackages.includes(a.name) ? '#c8ff3d' : '#000', color: selectedPackages.includes(a.name) ? '#000' : '#fff' }}>
+                    {selectedPackages.includes(a.name) ? "✓ Added" : "Add to Bundle"}
+                  </button>
+                </article>
+              );
+            })}
 
             {packageTab === "Custom" && (
               <div style={{ gridColumn: '1 / -1', background: '#fff', padding: '32px', borderRadius: '12px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
@@ -424,10 +459,10 @@ export default function Home() {
                     <input type="number" min="0" value={customShoots} onChange={e => setCustomShoots(Number(e.target.value))} style={{ border: '1px solid #ddd', marginTop: '8px' }} />
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '15px' }}>
-                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Basic ($100)</label><input type="number" min="0" value={basicQty} onChange={e => setBasicQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
-                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Standard ($250)</label><input type="number" min="0" value={standardQty} onChange={e => setStandardQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
-                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Premium ($350)</label><input type="number" min="0" value={premiumQty} onChange={e => setPremiumQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
-                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Luxury ($500)</label><input type="number" min="0" value={luxuryQty} onChange={e => setLuxuryQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
+                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Basic ($300)</label><input type="number" min="0" value={basicQty} onChange={e => setBasicQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
+                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Standard ($425)</label><input type="number" min="0" value={standardQty} onChange={e => setStandardQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
+                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Premium ($650)</label><input type="number" min="0" value={premiumQty} onChange={e => setPremiumQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
+                    <div><label style={{ fontSize: '0.75rem', color: '#151515', fontWeight: 800 }}>Luxury ($1200)</label><input type="number" min="0" value={luxuryQty} onChange={e => setLuxuryQty(Number(e.target.value))} style={{ border: '1px solid #ddd' }} /></div>
                   </div>
                 </div>
                 <div style={{ background: '#f8f6f0', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderRadius: '8px', padding: '24px', textAlign: 'center' }}>
