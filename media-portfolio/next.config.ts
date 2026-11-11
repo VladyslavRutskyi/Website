@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/Website', // Add this to match your repository name
+  output: "export",
+  basePath: "/Website",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
